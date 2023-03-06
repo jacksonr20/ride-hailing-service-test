@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule as CoreConfigModule } from '@nestjs/config';
+import { LoggerModule } from 'nestjs-pino';
 import { join } from 'path';
 import * as Joi from 'joi';
 
@@ -22,6 +23,19 @@ import appConfig from './app.config';
         DATABASE_SSL: Joi.boolean().default(false),
         DATABASE_USERNAME: Joi.string().required(),
       }),
+    }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        customProps: (_req, _res) => ({
+          context: 'HTTP',
+        }),
+        transport: {
+          target: 'pino-pretty',
+          options: {
+            singleLine: true,
+          },
+        },
+      },
     }),
   ],
   exports: [ConfigModule],
