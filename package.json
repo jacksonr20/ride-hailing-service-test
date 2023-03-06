@@ -33,6 +33,11 @@
     "test:cov": "NODE_ENV=testing jest --coverage",
     "test:debug": "NODE_ENV=testing node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "NODE_ENV=testing jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node ./node_modules/typeorm/cli",
+    "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./src/database/config/typeOrm.config.ts",
+    "typeorm:generate-migration": "npm run typeorm -- -d ./src/database/config/typeOrm.config.ts migration:generate ./src/database/migrations/$npm_config_name",
+    "typeorm:create-migration": "npm run typeorm -- migration:create ./src/database/migrations/$npm_config_name",
+    "typeorm:revert-migration": "npm run typeorm -- -d ./src/database/config/typeOrm.config.ts migration:revert",
     "prepare": "husky install"
   },
   "dependencies": {
