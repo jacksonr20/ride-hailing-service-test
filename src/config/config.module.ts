@@ -1,11 +1,14 @@
+import { APP_GUARD } from '@nestjs/core';
 import { Module } from '@nestjs/common';
 import { ConfigService, ConfigModule as CoreConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { LoggerModule } from 'nestjs-pino';
 import { join } from 'path';
 import * as Joi from 'joi';
 
 import appConfig from './app.config';
+import { Http, RateLimiting } from './interfaces';
 
 @Module({
   imports: [
@@ -40,12 +43,34 @@ import appConfig from './app.config';
     }),
     HttpModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        timeout: configService.get('HTTP_TIMEOUT'),
-        maxRedirects: configService.get('HTTP_MAX_REDIRECTS'),
-      }),
+      useFactory: async (configService: ConfigService) => {
+        const { timeout, maxRedirects } = configService.get<Http>('http') as Http;
+
+        return {
+          timeout,
+          maxRedirects,
+        };
+      },
       inject: [ConfigService],
     }),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const { ttl, limit } = configService.get<RateLimiting>('rateLimiting') as RateLimiting;
+
+        return {
+          ttl,
+          limit,
+        };
+      },
+      inject: [ConfigService],
+    }),
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
   exports: [ConfigModule],
 })

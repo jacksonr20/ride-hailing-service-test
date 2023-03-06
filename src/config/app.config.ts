@@ -10,4 +10,12 @@ export default (): AppConfig => ({
     ssl: process.env.DATABASE_SSL === 'true',
     username: String(process.env.DATABASE_USERNAME),
   },
+  rateLimiting: {
+    ttl: Number(process.env?.THROTTLER_TTL ?? 60),
+    limit: Number(process.env?.THROTTLER_LIMIT ?? 10),
+  },
+  http: {
+    timeout: Number(process.env?.HTTP_TIMEOUT ?? 5000),
+    maxRedirects: Number(process.env?.HTTP_MAX_REDIRECTS ?? 5),
+  },
 });
