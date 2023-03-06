@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  ride_hailing_database:
+    image: postgres:15.2-alpine
+    container_name: ride_hailing_database
+    restart: always
+    networks:
+      - ride_hailing_network
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - '5432:5432'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    networks:
+      - ride_hailing_network
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - '16543:80'
+    depends_on:
+      - ride_hailing_database
+
+networks:
+  ride_hailing_network:
+    driver: bridge
