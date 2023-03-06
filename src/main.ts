@@ -10,6 +10,9 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
+  // Allow resources to be requested from another domain.
+  app.enableCors();
+
   /**
    * Strip validated (returned) object of any properties that do not use any validation decorators.
    * Automatically transform payloads to be objects typed according to their DTO classes.
