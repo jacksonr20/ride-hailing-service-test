@@ -35,7 +35,7 @@ async function bootstrap() {
   // Setting up Swagger
   const config = new DocumentBuilder()
     .setTitle(process.env?.APP_NAME ?? 'Swagger')
-    .setDescription('Small ride-hailing service that uses Wompi for monetary transactions')
+    .setDescription('Small ride-hailing service for monetary transactions')
     .setVersion('1.0')
     .build();
 

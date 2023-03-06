@@ -1,12 +1,17 @@
 {
   "name": "ride-hailing",
   "version": "0.0.1",
-  "description": "Small ride-hailing service that uses Wompi for monetary transactions",
+  "description": "Small ride-hailing service for monetary transactions",
   "keywords": [
     "NestJS",
     "Ride Hailing",
     "TypeORM",
-    "Postgres"
+    "Postgres",
+    "ESLint",
+    "Husky",
+    "Commit Lint",
+    "Health Check",
+    "Rate Limiting"
   ],
   "homepage": "https://github.com/jacksonr20/ride-hailing-service-test/#readme",
   "bugs": {
