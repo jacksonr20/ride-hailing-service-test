@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule as CoreConfigModule } from '@nestjs/config';
+import { ConfigService, ConfigModule as CoreConfigModule } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
 import { LoggerModule } from 'nestjs-pino';
 import { join } from 'path';
 import * as Joi from 'joi';
@@ -36,6 +37,14 @@ import appConfig from './app.config';
           },
         },
       },
+    }),
+    HttpModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        timeout: configService.get('HTTP_TIMEOUT'),
+        maxRedirects: configService.get('HTTP_MAX_REDIRECTS'),
+      }),
+      inject: [ConfigService],
     }),
   ],
   exports: [ConfigModule],
