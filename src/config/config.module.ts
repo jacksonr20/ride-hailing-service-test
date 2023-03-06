@@ -11,7 +11,7 @@ import appConfig from './app.config';
       isGlobal: true,
       cache: true,
       load: [appConfig],
-      envFilePath: join(__dirname, '../..', `.env.${process.env?.NODE_ENV ?? 'production'}`),
+      envFilePath: join(__dirname, '../..', '.env'),
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().valid('development', 'production', 'testing').default('development'),
         PORT: Joi.number().default(3000),
