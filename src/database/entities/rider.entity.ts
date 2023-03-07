@@ -1,6 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 
 import { Base } from './base.entity';
+import { PaymentMethods } from './payment-methods.entity';
 
 @Entity('riders')
 export class Rider extends Base {
@@ -37,4 +38,7 @@ export class Rider extends Base {
     type: 'smallint',
   })
   rating?: number;
+
+  @OneToMany(() => PaymentMethods, paymentMethod => paymentMethod.rider, { nullable: true, eager: true })
+  paymentMethods: PaymentMethods[];
 }

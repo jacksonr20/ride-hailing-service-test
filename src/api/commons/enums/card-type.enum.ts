@@ -1,0 +1,5 @@
+export enum CardType {
+  VISA = 'VISA',
+  MASTERCARD = 'MASTERCARD',
+  AMERICAN_EXPRESS = 'AMERICAN_EXPRESS',
+}
