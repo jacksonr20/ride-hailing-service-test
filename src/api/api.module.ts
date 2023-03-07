@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { RiderModule } from './riders';
-
 @Module({
-  imports: [RiderModule],
+  imports: [],
 })
 export class ApiModule {}
