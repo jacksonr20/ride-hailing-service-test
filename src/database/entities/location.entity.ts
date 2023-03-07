@@ -1,7 +1,8 @@
-import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToOne } from 'typeorm';
 
 import { Base } from './base.entity';
 import { Request } from './request.entity';
+import { Trip } from './trip.entity';
 
 @Entity()
 export class Location extends Base {
@@ -28,4 +29,7 @@ export class Location extends Base {
 
   @OneToOne(() => Request, request => request.dropOffLocation)
   requestDropOffLocation: Request;
+
+  @OneToOne(() => Trip, trip => trip.finalLocation)
+  finalLocation: Trip;
 }

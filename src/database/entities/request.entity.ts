@@ -7,6 +7,7 @@ import { Rider } from './rider.entity';
 
 // Enums
 import { RequestStatus } from './../../api/commons';
+import { Trip } from './trip.entity';
 
 @Entity('requests')
 export class Request extends Base {
@@ -21,6 +22,9 @@ export class Request extends Base {
     name: 'dropoff_location',
   })
   dropOffLocation: Location;
+
+  @OneToOne(() => Trip, trip => trip.request)
+  trip: Trip;
 
   @ManyToOne(() => Rider, rider => rider.requests, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'rider_id' })

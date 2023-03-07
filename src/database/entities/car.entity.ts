@@ -1,7 +1,8 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 import { Base } from './base.entity';
 import { Driver } from './driver.entity';
+import { Trip } from './trip.entity';
 
 @Entity('cars')
 export class Car extends Base {
@@ -40,4 +41,7 @@ export class Car extends Base {
   @ManyToOne(() => Driver, driver => driver.cars, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'driver_id' })
   driver: Driver;
+
+  @OneToMany(() => Trip, trip => trip.carId, { onDelete: 'CASCADE', eager: true })
+  trips: Trip[];
 }
