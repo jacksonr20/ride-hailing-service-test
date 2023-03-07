@@ -34,7 +34,7 @@ export class Trip extends Base {
 
   @OneToOne(() => Location, location => location.finalLocation, { nullable: true })
   @JoinColumn({
-    name: 'final_location',
+    name: 'final_location_id',
   })
   finalLocation?: Location;
 
@@ -71,6 +71,9 @@ export class Trip extends Base {
   })
   status: TripStatus;
 
-  @OneToOne(() => Payment, payment => payment.trip)
+  @OneToOne(() => Payment, payment => payment.trip, { eager: true, onDelete: 'CASCADE' })
+  @JoinColumn({
+    name: 'payment_id',
+  })
   payment: Payment;
 }

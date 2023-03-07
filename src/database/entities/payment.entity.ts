@@ -10,10 +10,7 @@ import { PaymentStatus } from './../../api/commons';
 
 @Entity('payments')
 export class Payment extends Base {
-  @OneToOne(() => Trip, trip => trip.payment, { eager: true, onDelete: 'CASCADE' })
-  @JoinColumn({
-    name: 'trip_id',
-  })
+  @OneToOne(() => Trip, trip => trip.payment)
   trip: Trip;
 
   @ManyToOne(() => PaymentMethod, paymentMethod => paymentMethod.payments, { onDelete: 'CASCADE' })

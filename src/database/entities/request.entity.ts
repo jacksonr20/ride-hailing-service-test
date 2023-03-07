@@ -13,13 +13,13 @@ import { Trip } from './trip.entity';
 export class Request extends Base {
   @OneToOne(() => Location, location => location.requestPickUpLocation, { eager: true, onDelete: 'CASCADE' })
   @JoinColumn({
-    name: 'pickup_location',
+    name: 'pickup_location_id',
   })
   pickUpLocation: Location;
 
   @OneToOne(() => Location, location => location.requestDropOffLocation, { eager: true, onDelete: 'CASCADE' })
   @JoinColumn({
-    name: 'dropoff_location',
+    name: 'dropoff_location_id',
   })
   dropOffLocation: Location;
 
