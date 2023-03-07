@@ -8,8 +8,9 @@ export class Rider extends Base {
   @Column({
     type: 'varchar',
     length: 150,
+    name: 'first_name',
   })
-  name: string;
+  firstName: string;
 
   @Column({
     type: 'varchar',
