@@ -1,16 +1,16 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import { Base } from './base.entity';
-import { CardType, PaymentMethod } from './../../api/commons';
+import { CardType, PaymentMethod as Method } from '../../api/commons';
 import { Rider } from './rider.entity';
 
 @Entity('payment_methods')
-export class PaymentMethods extends Base {
+export class PaymentMethod extends Base {
   @Column({
     type: 'enum',
-    enum: PaymentMethod,
+    enum: Method,
   })
-  method: PaymentMethod;
+  method: Method;
 
   @Column({
     type: 'varchar',

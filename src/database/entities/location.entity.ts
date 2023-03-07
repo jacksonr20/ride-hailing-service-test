@@ -1,6 +1,7 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 
 import { Base } from './base.entity';
+import { Request } from './request.entity';
 
 @Entity()
 export class Location extends Base {
@@ -21,4 +22,10 @@ export class Location extends Base {
     type: 'varchar',
   })
   zipCode?: string;
+
+  @OneToOne(() => Request, request => request.pickUpLocation)
+  requestPickUpLocation: Request;
+
+  @OneToOne(() => Request, request => request.dropOffLocation)
+  requestDropOffLocation: Request;
 }
