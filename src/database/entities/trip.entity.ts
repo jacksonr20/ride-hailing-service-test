@@ -5,6 +5,7 @@ import { Base } from './base.entity';
 import { Car } from './car.entity';
 import { Driver } from './driver.entity';
 import { Location } from './location.entity';
+import { Payment } from './payment.entity';
 import { Request } from './request.entity';
 
 // Enums
@@ -24,11 +25,18 @@ export class Trip extends Base {
   })
   startTime: Date;
 
-  @OneToOne(() => Location, location => location.finalLocation)
+  @Column({
+    type: 'timestamptz',
+    name: 'end_time',
+    nullable: true,
+  })
+  endTime?: Date;
+
+  @OneToOne(() => Location, location => location.finalLocation, { nullable: true })
   @JoinColumn({
     name: 'final_location',
   })
-  finalLocation: Location;
+  finalLocation?: Location;
 
   @ManyToOne(() => Driver, driver => driver.trips)
   @JoinColumn({
@@ -41,13 +49,6 @@ export class Trip extends Base {
     name: 'car_id',
   })
   carId: Car;
-
-  @Column({
-    type: 'numeric',
-    precision: 10,
-    scale: 2,
-  })
-  fare: number;
 
   @Column({
     nullable: true,
@@ -69,4 +70,7 @@ export class Trip extends Base {
     default: TripStatus.IN_PROGRESS,
   })
   status: TripStatus;
+
+  @OneToOne(() => Payment, payment => payment.trip)
+  payment: Payment;
 }
