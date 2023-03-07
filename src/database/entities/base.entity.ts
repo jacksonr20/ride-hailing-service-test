@@ -1,7 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 import { IsOptional } from 'class-validator';
 
-@Entity()
 export class Base {
   @PrimaryGeneratedColumn('uuid')
   id: number;

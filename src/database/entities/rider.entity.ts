@@ -14,6 +14,7 @@ export class Rider extends Base {
     type: 'varchar',
     length: 150,
     nullable: true,
+    name: 'last_name',
   })
   lastName?: string;
 
