@@ -1,6 +1,7 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 
 import { Rider } from './rider.entity';
+import { Car } from './car.entity';
 
 @Entity('drivers')
 export class Driver extends Rider {
@@ -23,4 +24,7 @@ export class Driver extends Rider {
     name: 'is_banned',
   })
   isBanned?: boolean;
+
+  @OneToMany(() => Car, car => car.driver, { nullable: true, eager: true })
+  cars: Car[];
 }
