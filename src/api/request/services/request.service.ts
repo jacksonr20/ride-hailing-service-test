@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 
 import { Request } from '../entities';
 import { FinishRideDto, RequestRideDto } from '../dto';
-import { calculateFare } from 'src/api/commons';
+import { calculateFare } from '../../commons';
 
 import { RiderService } from './rider.service';
 import { TripService } from './trip.service';
