@@ -3,7 +3,7 @@ import { IsOptional } from 'class-validator';
 
 export class Base {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @CreateDateColumn({
     name: 'created_at',

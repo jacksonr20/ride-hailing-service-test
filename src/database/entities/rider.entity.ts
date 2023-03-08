@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, OneToMany } from 'typeorm';
+import { Expose } from 'class-transformer';
 
 import { Base } from './base.entity';
 import { PaymentMethod } from './payment-method.entity';
@@ -70,4 +71,9 @@ export class Rider extends Base {
 
   @OneToMany(() => Request, request => request.rider, { nullable: true, eager: true })
   requests: Request[];
+
+  @Expose()
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
 }
