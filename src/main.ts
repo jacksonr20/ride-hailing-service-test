@@ -15,13 +15,15 @@ async function bootstrap() {
   app.enableCors();
 
   /**
+   * Instead of stripping non-whitelisted properties validator will throw an error
    * Strip validated (returned) object of any properties that do not use any validation decorators.
    * Automatically transform payloads to be objects typed according to their DTO classes.
    * **/
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
+      forbidNonWhitelisted: true,
       transform: true,
+      whitelist: true,
     }),
   );
 
