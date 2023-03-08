@@ -9,9 +9,10 @@ import { RiderService } from './rider.service';
 import { TripService } from './trip.service';
 import { PaymentService } from './payment.service';
 
-import { RequestStatus } from './../../commons/enums';
-import { Trip } from './../../../database/entities';
-import { MapBox } from './../../libs';
+import { RequestStatus, TripStatus } from './../../commons/enums';
+import { Payment, Trip } from './../../../database/entities';
+import { MapBox, PaymentGateway } from './../../libs';
+import { generateUuid } from './../../commons/helpers';
 
 @Injectable()
 export class RequestService {
@@ -45,8 +46,8 @@ export class RequestService {
         coordinates: [dropoffLocation.latitude, dropoffLocation.longitude],
       };
       const { distance, duration } = await MapBox.getDirection(
-        `${pickupLocation.latitude},${pickupLocation.longitude}`,
-        `${dropoffLocation.latitude},${dropoffLocation.longitude}`,
+        `${pickupLocation.longitude},${pickupLocation.latitude}`,
+        `${dropoffLocation.longitude},${dropoffLocation.latitude}`,
       );
       request.rider = await this.riderService.getOneByIdOrFail(riderId);
       request.estimatedFare = calculateFare(distance, duration);
@@ -77,51 +78,65 @@ export class RequestService {
     }
   }
 
-  async finishRide(payload: FinishRideDto): Promise<void> {
+  async finishRide(payload: FinishRideDto): Promise<Trip> {
     try {
-      const { tripId, finalLocation, riderRating } = payload;
+      const { tripId, finalLocation, riderRating, tip } = payload;
       const currentTrip = await this.tripService.getOneByIdOrFail(tripId);
-
+      const paymentGateway = new PaymentGateway();
       const {
+        rider: { email },
         pickUpLocation: { coordinates },
       } = currentTrip.request;
 
-      const { distance, duration } = await MapBox.getDirection(`${coordinates[0]},${coordinates[1]}`, `${finalLocation.latitude},${finalLocation.longitude}`);
-      const tripPayment = this.paymentService.generatePayment(calculateFare(distance, duration));
-      // const request = new Request();
+      const { distance, duration } = await MapBox.getDirection(`${coordinates[1]},${coordinates[0]}`, `${finalLocation.longitude},${finalLocation.latitude}`);
+      const tripFinalFare = calculateFare(distance, duration);
+      let ridePropertiesToUpdate: Partial<Trip> = {};
 
-      // request.pickUpLocation = {
-      //   type: 'Point',
-      //   coordinates: [pickupLocation.latitude, pickupLocation.longitude],
-      // };
-      // request.dropOffLocation = {
-      //   type: 'Point',
-      //   coordinates: [dropoffLocation.latitude, dropoffLocation.longitude],
-      // };
-      // const { distance, duration } = await MapBox.getDirection(
-      //   `${pickupLocation.latitude},${pickupLocation.longitude}`,
-      //   `${dropoffLocation.latitude},${dropoffLocation.longitude}`,
-      // );
-      // request.rider = await this.riderService.getOneByIdOrFail(riderId);
-      // request.estimatedFare = calculateFare(distance, duration);
+      await this.dataSource.transaction(async manager => {
+        const referenceId = generateUuid();
 
-      // let incomingRequest: Request = new Request();
+        // Create the transaction in the gateway
+        const tokenizedCard = await paymentGateway.tokenizeCard();
+        const transactionId = await paymentGateway.createNewTransaction({
+          amountInCents: tripFinalFare,
+          customerEmail: email,
+          reference: referenceId,
+          paymentMethod: {
+            installments: 1,
+            token: tokenizedCard,
+            type: 'CARD',
+          },
+        });
 
-      // await this.dataSource.transaction(async manager => {
-      //   // Create the incoming request with the given payload
-      //   incomingRequest = await manager.save<Request>(request);
+        // Save the payment created for this trip
+        const paymentReference = await manager.save<Payment>(
+          await this.paymentService.generatePayment({
+            id: referenceId,
+            fare: tripFinalFare,
+            transactionId,
+          }),
+        );
 
-      //   // Creating the related trip with it's driver
-      //   const relatedTrip = await this.tripService.generateBaseTrip(incomingRequest);
-      //   await manager.save<Trip>(relatedTrip);
+        // Update the existing trip entity
+        ridePropertiesToUpdate = {
+          status: TripStatus.COMPLETED,
+          finalLocation: {
+            type: 'Point',
+            coordinates: [finalLocation.latitude, finalLocation.longitude],
+          },
+          payment: paymentReference,
+          endTime: new Date(),
+          riderRating,
+        };
+        await manager.update<Trip>(Trip, { id: currentTrip.id }, ridePropertiesToUpdate);
+      });
 
-      //   // As the request was accepted automatically we must change it's status
-      //   await manager.update<Request>(Request, { id: incomingRequest.id }, { status: RequestStatus.ACCEPTED });
-      // });
-
-      // return incomingRequest;
+      return {
+        ...currentTrip,
+        ...ridePropertiesToUpdate,
+      };
     } catch (error) {
-      if (error instanceof NotFoundException) {
+      if (error instanceof NotFoundException || error instanceof InternalServerErrorException) {
         throw error;
       }
 

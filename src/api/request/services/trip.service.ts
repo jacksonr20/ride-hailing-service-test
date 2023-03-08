@@ -31,6 +31,12 @@ export class TripService {
       where: {
         id,
       },
+      relations: ['request', 'request.trip'],
+      // relations: {
+      //   request: {
+      //     rider: true,
+      //   },
+      // },
     });
 
     if (!trip) {

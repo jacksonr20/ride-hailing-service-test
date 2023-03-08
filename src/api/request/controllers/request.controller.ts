@@ -74,7 +74,7 @@ export class RequestController {
     summary: 'Driver request to finish a ride',
   })
   @ApiCreatedResponse({
-    description: 'Ride has been created successfully.',
+    description: 'Ride has been finished and you have a new charge.',
     schema: {
       example: {
         pickUpLocation: [-75.604705, 6.158212],
@@ -120,7 +120,7 @@ export class RequestController {
     },
   })
   @UseInterceptors(ClassSerializerInterceptor)
-  async finishRide(@Body() payload: FinishRideDto): Promise<void> {
+  async finishRide(@Body() payload: FinishRideDto): Promise<Trip> {
     const finishRide = await this.requestService.finishRide(payload);
 
     return finishRide;

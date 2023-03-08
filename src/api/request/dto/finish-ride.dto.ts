@@ -43,4 +43,22 @@ export class FinishRideDto {
     message: 'Rider Rating should be less than or equal to 10',
   })
   readonly riderRating?: number;
+
+  @ApiProperty({
+    description: 'Tip',
+    type: 'number',
+    example: '5',
+    required: false,
+  })
+  @IsNumber(
+    {},
+    {
+      message: 'Tip should be a number',
+    },
+  )
+  @IsOptional()
+  @Min(0, {
+    message: 'Tip should be greater than or equal to 0',
+  })
+  readonly tip?: number;
 }

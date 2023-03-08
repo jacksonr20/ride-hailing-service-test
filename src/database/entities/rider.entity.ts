@@ -65,7 +65,7 @@ export class Rider extends Base {
   })
   rating?: number;
 
-  @OneToMany(() => Request, request => request.rider, { nullable: true, eager: true })
+  @OneToMany(() => Request, request => request.rider, { nullable: true })
   requests: Request[];
 
   @Expose()
