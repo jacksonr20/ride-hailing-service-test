@@ -6,7 +6,7 @@ import { Base } from './base.entity';
 import { Trip } from './trip.entity';
 
 // Enums
-import { PaymentStatus } from './../../api/commons';
+import { PaymentMethod, PaymentStatus } from './../../api/commons';
 
 @Entity('payments')
 export class Payment extends Base {
@@ -45,4 +45,18 @@ export class Payment extends Base {
     enum: PaymentStatus,
   })
   status: PaymentStatus;
+
+  @ApiProperty({
+    description: 'Payment Method Type',
+    required: false,
+    example: Object.values(PaymentMethod),
+    enum: PaymentMethod,
+  })
+  @Column({
+    type: 'enum',
+    name: 'payment_method_type',
+    enum: PaymentMethod,
+    nullable: true,
+  })
+  paymentMethodType?: PaymentMethod;
 }

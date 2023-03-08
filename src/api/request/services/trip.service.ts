@@ -10,7 +10,7 @@ import { Request } from '../entities';
 export class TripService {
   constructor(
     @InjectRepository(Trip)
-    private readonly riderRepository: Repository<Trip>,
+    private readonly tripRepository: Repository<Trip>,
     private readonly driverService: DriverService,
   ) {}
 
@@ -27,16 +27,16 @@ export class TripService {
   }
 
   async getOneByIdOrFail(id: string): Promise<Trip> {
-    const rider = await this.riderRepository.findOne({
+    const trip = await this.tripRepository.findOne({
       where: {
         id,
       },
     });
 
-    if (!rider) {
-      throw new NotFoundException('The entity you are looking for does not exists!');
+    if (!trip) {
+      throw new NotFoundException('The trip you are looking for does not exists!');
     }
 
-    return rider;
+    return trip;
   }
 }
