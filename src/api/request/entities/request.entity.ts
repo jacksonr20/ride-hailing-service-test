@@ -1,50 +1,52 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToOne, JoinColumn, Point } from 'typeorm';
+import { Transform } from 'class-transformer';
 
 // Entities
-import { Base } from './base.entity';
-import { Location } from './location.entity';
-import { Rider } from './rider.entity';
+import { Base, Rider, Trip } from '../../../database/entities';
 
 // Enums
-import { RequestStatus } from './../../api/commons';
-import { Trip } from './trip.entity';
+import { RequestStatus, transformFareToCurrency } from './../../commons';
 
 @Entity('requests')
 export class Request extends Base {
   @ApiProperty({
     description: 'Pickup location',
-    type: () => Location,
   })
-  @OneToOne(() => Location, location => location.requestPickUpLocation, { eager: true, onDelete: 'CASCADE' })
-  @JoinColumn({
-    name: 'pickup_location_id',
+  @Column('geometry', {
+    name: 'pickup_location',
   })
-  pickUpLocation: Location;
+  @Transform(({ value }) => value.coordinates)
+  pickUpLocation: Point;
 
   @ApiProperty({
-    description: 'Dropoff location',
-    type: () => Location,
+    description: 'Pickup location',
   })
-  @OneToOne(() => Location, location => location.requestDropOffLocation, { eager: true, onDelete: 'CASCADE' })
-  @JoinColumn({
-    name: 'dropoff_location_id',
+  @Column('geometry', {
+    name: 'dropoff_location',
   })
-  dropOffLocation: Location;
+  @Transform(({ value }) => value.coordinates)
+  dropOffLocation: Point;
 
   @ApiProperty({
     description: 'Trip Details',
     type: () => Trip,
   })
   @OneToOne(() => Trip, trip => trip.request)
+  @Transform(({ value }) => ({
+    startTime: value?.startTime,
+    endTime: value?.startTime,
+    finalLocation: value?.finalLocation?.coordinates,
+  }))
   trip: Trip;
 
   @ApiProperty({
     description: 'Rider Details',
-    type: () => Rider,
+    type: String,
   })
   @ManyToOne(() => Rider, rider => rider.requests, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'rider_id' })
+  @Transform(({ value }) => value.fullName)
   rider: Rider;
 
   @ApiProperty({
@@ -57,18 +59,8 @@ export class Request extends Base {
     precision: 10,
     scale: 2,
   })
+  @Transform(({ value }) => transformFareToCurrency(value))
   estimatedFare: number;
-
-  @ApiProperty({
-    description: 'Request Surge',
-    type: Number,
-  })
-  @Column({
-    type: 'numeric',
-    precision: 10,
-    scale: 2,
-  })
-  surge: number;
 
   @ApiProperty({
     description: 'Request Status',

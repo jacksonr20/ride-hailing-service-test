@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   ride_hailing_database:
-    image: postgres:15.2-alpine
+    build:
+      dockerfile: ./Dockerfile-Postgres
     container_name: ride_hailing_database
     restart: always
     networks:

@@ -2,8 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, OneToOne } from 'typeorm';
 
 import { Base } from './base.entity';
-import { Request } from './request.entity';
 import { Trip } from './trip.entity';
+import { Request } from '../../api/request/entities';
 
 @Entity()
 export class Location extends Base {
