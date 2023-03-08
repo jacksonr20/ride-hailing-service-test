@@ -7,7 +7,7 @@ import { Car } from './car.entity';
 import { Driver } from './driver.entity';
 import { Location } from './location.entity';
 import { Payment } from './payment.entity';
-import { Request } from './request.entity';
+import { Request } from '../../api/request/entities';
 
 // Enums
 import { TripStatus } from './../../api/commons';

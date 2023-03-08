@@ -3,7 +3,7 @@ import { Entity, Column, OneToMany } from 'typeorm';
 
 import { Base } from './base.entity';
 import { PaymentMethod } from './payment-method.entity';
-import { Request } from './request.entity';
+import { Request } from '../../api/request/entities';
 
 @Entity('riders')
 export class Rider extends Base {

@@ -2,13 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
 
 // Entities
-import { Base } from './base.entity';
-import { Location } from './location.entity';
-import { Rider } from './rider.entity';
+import { Base, Location, Rider, Trip } from '../../../database/entities';
 
 // Enums
-import { RequestStatus } from './../../api/commons';
-import { Trip } from './trip.entity';
+import { RequestStatus } from './../../commons';
 
 @Entity('requests')
 export class Request extends Base {
