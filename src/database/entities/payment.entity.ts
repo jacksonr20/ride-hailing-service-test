@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
 
 // Entities
@@ -17,6 +18,9 @@ export class Payment extends Base {
   @JoinColumn({ name: 'payment_method_id' })
   paymentMethod: PaymentMethod;
 
+  @ApiProperty({
+    description: 'Trip Fare',
+  })
   @Column({
     type: 'numeric',
     precision: 10,
@@ -24,6 +28,10 @@ export class Payment extends Base {
   })
   fare: number;
 
+  @ApiProperty({
+    description: 'Trip Tip',
+    required: false,
+  })
   @Column({
     type: 'numeric',
     precision: 10,
@@ -32,6 +40,11 @@ export class Payment extends Base {
   })
   tip?: number;
 
+  @ApiProperty({
+    description: 'Trip Status',
+    enum: PaymentStatus,
+    example: Object.values(PaymentStatus),
+  })
   @Column({
     type: 'enum',
     enum: PaymentStatus,

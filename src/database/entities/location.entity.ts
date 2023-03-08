@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, OneToOne } from 'typeorm';
 
 import { Base } from './base.entity';
@@ -6,16 +7,25 @@ import { Trip } from './trip.entity';
 
 @Entity()
 export class Location extends Base {
+  @ApiProperty({
+    description: 'Location Latitude',
+  })
   @Column({
     type: 'varchar',
   })
   latitude: string;
 
+  @ApiProperty({
+    description: 'Location Longitude',
+  })
   @Column({
     type: 'varchar',
   })
   longitude: string;
 
+  @ApiProperty({
+    description: 'Location Zip Code',
+  })
   @Column({
     length: 150,
     name: 'zip_code',

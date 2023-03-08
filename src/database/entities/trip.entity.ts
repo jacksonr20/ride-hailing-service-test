@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
 
 // Entities
@@ -19,12 +20,21 @@ export class Trip extends Base {
   })
   request: Request;
 
+  @ApiProperty({
+    description: 'Trip Started At',
+    type: Date,
+  })
   @Column({
     type: 'timestamptz',
     name: 'start_time',
   })
   startTime: Date;
 
+  @ApiProperty({
+    description: 'Trip Ended At',
+    type: Date,
+    required: false,
+  })
   @Column({
     type: 'timestamptz',
     name: 'end_time',
@@ -32,24 +42,42 @@ export class Trip extends Base {
   })
   endTime?: Date;
 
+  @ApiProperty({
+    description: 'Trip Final Location',
+    type: () => Location,
+    required: false,
+  })
   @OneToOne(() => Location, location => location.finalLocation, { nullable: true })
   @JoinColumn({
     name: 'final_location_id',
   })
   finalLocation?: Location;
 
+  @ApiProperty({
+    description: 'Trip Driver',
+    type: () => Driver,
+  })
   @ManyToOne(() => Driver, driver => driver.trips)
   @JoinColumn({
     name: 'driver_id',
   })
   driver: Driver;
 
+  @ApiProperty({
+    description: 'Car Used to Complete the Trip',
+    type: () => Car,
+  })
   @ManyToOne(() => Car, car => car.trips)
   @JoinColumn({
     name: 'car_id',
   })
-  carId: Car;
+  car: Car;
 
+  @ApiProperty({
+    description: 'Rider Rating per Trip',
+    required: false,
+    type: Number,
+  })
   @Column({
     nullable: true,
     type: 'smallint',
@@ -57,6 +85,11 @@ export class Trip extends Base {
   })
   riderRating?: number;
 
+  @ApiProperty({
+    description: 'Rider Rating per Trip',
+    required: false,
+    type: Number,
+  })
   @Column({
     nullable: true,
     type: 'smallint',
@@ -64,6 +97,11 @@ export class Trip extends Base {
   })
   driverRating?: number;
 
+  @ApiProperty({
+    description: 'Trip Status',
+    enum: TripStatus,
+    example: Object.keys(TripStatus),
+  })
   @Column({
     type: 'enum',
     enum: TripStatus,
@@ -71,6 +109,10 @@ export class Trip extends Base {
   })
   status: TripStatus;
 
+  @ApiProperty({
+    description: 'Trip Payment',
+    type: () => Payment,
+  })
   @OneToOne(() => Payment, payment => payment.trip, { eager: true, onDelete: 'CASCADE' })
   @JoinColumn({
     name: 'payment_id',
