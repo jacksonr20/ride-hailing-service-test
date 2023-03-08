@@ -1,16 +1,17 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 import { Base } from './base.entity';
-import { CardType, PaymentMethod } from './../../api/commons';
+import { CardType, PaymentMethod as Method } from '../../api/commons';
 import { Rider } from './rider.entity';
+import { Payment } from './payment.entity';
 
 @Entity('payment_methods')
-export class PaymentMethods extends Base {
+export class PaymentMethod extends Base {
   @Column({
     type: 'enum',
-    enum: PaymentMethod,
+    enum: Method,
   })
-  method: PaymentMethod;
+  method: Method;
 
   @Column({
     type: 'varchar',
@@ -37,4 +38,7 @@ export class PaymentMethods extends Base {
   @ManyToOne(() => Rider, rider => rider.paymentMethods, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'rider_id' })
   rider: Rider;
+
+  @OneToMany(() => Payment, payment => payment.paymentMethod, { nullable: true, eager: true })
+  payments: Payment[];
 }
