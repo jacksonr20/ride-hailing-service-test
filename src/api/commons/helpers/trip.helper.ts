@@ -9,10 +9,10 @@ export const distanceToKilometers = (distanceInMeters: number): number => Number
 export const durationToMinutes = (durationInSeconds: number): number => Number((durationInSeconds / 60).toFixed(1));
 
 export const calculateFare = (distance: number, duration: number): number => {
-  const distanceFee = distance * Fees.DISTANCE;
-  const durationFee = duration * Fees.DURATION;
+  const distanceFare = distance * Fees.DISTANCE;
+  const durationFare = duration * Fees.DURATION;
 
-  return distanceFee + durationFee + Fees.BASE;
+  return distanceFare + durationFare + Fees.BASE;
 };
 
 export const transformFareToCurrency = (fare: number): string =>

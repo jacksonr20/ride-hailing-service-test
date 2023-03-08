@@ -18,4 +18,11 @@ export default (): AppConfig => ({
     timeout: Number(process.env?.HTTP_TIMEOUT ?? 5000),
     maxRedirects: Number(process.env?.HTTP_MAX_REDIRECTS ?? 5),
   },
+  tokenizeCard: {
+    number: Number(process.env?.TOKENIZE_CARD_NUMBER),
+    cvc: Number(process.env?.TOKENIZE_CARD_CVC),
+    expMonth: Number(process.env?.TOKENIZE_CARD_EXP_MONTH),
+    expYear: Number(process.env?.TOKENIZE_CARD_EXP_YEAR),
+    cardHolder: String(process.env?.TOKENIZE_CARD_HOLDER),
+  },
 });

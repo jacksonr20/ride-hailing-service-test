@@ -19,7 +19,7 @@ export class RiderService {
     });
 
     if (!rider) {
-      throw new NotFoundException('The entity you are looking for does not exists!');
+      throw new NotFoundException('The rider you are looking for does not exists!');
     }
 
     return rider;

@@ -30,7 +30,7 @@ export class Request extends Base {
 
   @ApiProperty({
     description: 'Trip Details',
-    type: () => Trip,
+    type: Trip,
   })
   @OneToOne(() => Trip, trip => trip.request)
   @Transform(({ value }) => ({
@@ -42,9 +42,9 @@ export class Request extends Base {
 
   @ApiProperty({
     description: 'Rider Details',
-    type: String,
+    type: Rider,
   })
-  @ManyToOne(() => Rider, rider => rider.requests, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Rider, rider => rider.requests, { onDelete: 'CASCADE', eager: true })
   @JoinColumn({ name: 'rider_id' })
   @Transform(({ value }) => value.fullName)
   rider: Rider;
