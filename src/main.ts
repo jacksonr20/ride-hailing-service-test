@@ -35,14 +35,16 @@ async function bootstrap() {
   await app.register(compression, { encodings: ['gzip', 'deflate'] });
 
   // Setting up Swagger
-  const config = new DocumentBuilder()
-    .setTitle(process.env?.APP_NAME ?? 'Swagger')
-    .setDescription('Small ride-hailing service for monetary transactions')
-    .setVersion('1.0')
-    .build();
+  if (['local', 'development'].includes(process.env?.NODE_ENV ?? 'production')) {
+    const config = new DocumentBuilder()
+      .setTitle(process.env?.APP_NAME ?? 'Swagger')
+      .setDescription('Small ride-hailing service for monetary transactions')
+      .setVersion('1.0')
+      .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
+  }
 
   // Initialize helmet to protect the app from some well-known web vulnerabilities
   await app.register(helmet, {

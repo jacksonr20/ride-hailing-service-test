@@ -1,0 +1,134 @@
+name: Deployment Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, develop, qa]
+    types: [opened, synchronize]
+
+jobs:
+  workflow-details:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "ℹ️ This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "👀 This job is now running on a ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - run: echo "㊢ The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "👽 The workflow is now ready to test your code on the runner."
+
+  avoid-redundancy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel previous redundant build
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+  create-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repository Code
+        uses: actions/checkout@v3
+        with:
+          # Just fetching the last commit
+          fetch-depth: 0
+
+      - name: Set NodeJS Version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: Installing Dependencies
+        run: npm ci
+
+      - name: Creating Artifacts Folder
+        run: mkdir artifacts
+
+      - name: Compressing App Code for Future Reuse
+        run: tar -cvzf artifacts/ride_hailing.tar.gz --exclude=./artifacts .
+
+      - name: Uploading Ride Hailing Code
+        uses: actions/upload-artifact@v3
+        with:
+          name: ride_hailing.tar.gz
+          path: artifacts/ride_hailing.tar.gz
+
+  lint:
+    needs: ['create-app']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Downloading Ride Hailing Code
+        uses: actions/download-artifact@v3
+        with:
+          name: ride_hailing.tar.gz
+
+      - name: Decompressing Code
+        run: tar -xvzf ride_hailing.tar.gz
+
+      - name: Running Linter
+        run: npm run lint
+
+  build:
+    needs: ['create-app']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Downloading Ride Hailing App
+        uses: actions/download-artifact@v3
+        with:
+          name: ride_hailing.tar.gz
+
+      - name: Decompressing Code
+        run: tar -xvzf ride_hailing.tar.gz
+
+      - name: Building the Application
+        run: npm run build --if-present
+
+      - name: Uploading Ride Hailing Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+  test:
+    needs: ['lint', 'build']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Downloading Ride Hailing Code
+        uses: actions/download-artifact@v3
+        with:
+          name: ride_hailing.tar.gz
+
+      - name: Decompressing Code
+        run: tar -xvzf ride_hailing.tar.gz
+
+      - name: Downloading Ride Hailing Build
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Running tests
+        run: npm run test
+
+  deploy:
+    needs: ['test']
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🙌 Deploy step must be implemented on your own."
+
+      - run: echo "🗽 This job's status is ${{ job.status }}."
+
+  clean-artifacts:
+    needs: ['deploy']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleaning Artifacts by Workflow Run
+        uses: jimschubert/delete-artifacts-action@v1
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          log_level: 'debug'
+          min_bytes: '0'
+          run_id: ${{ github.run_id }}
