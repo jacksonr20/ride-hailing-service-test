@@ -1,10 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToOne } from 'typeorm';
 
 // Entities
 import { Base } from './base.entity';
 import { Trip } from './trip.entity';
-import { PaymentMethod } from './payment-method.entity';
 
 // Enums
 import { PaymentStatus } from './../../api/commons';
@@ -13,10 +12,6 @@ import { PaymentStatus } from './../../api/commons';
 export class Payment extends Base {
   @OneToOne(() => Trip, trip => trip.payment)
   trip: Trip;
-
-  @ManyToOne(() => PaymentMethod, paymentMethod => paymentMethod.payments, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'payment_method_id' })
-  paymentMethod: PaymentMethod;
 
   @ApiProperty({
     description: 'Trip Fare',

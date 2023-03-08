@@ -3,7 +3,6 @@ import { Entity, Column, OneToMany } from 'typeorm';
 import { Expose } from 'class-transformer';
 
 import { Base } from './base.entity';
-import { PaymentMethod } from './payment-method.entity';
 import { Request } from '../../api/request/entities';
 
 @Entity('riders')
@@ -65,9 +64,6 @@ export class Rider extends Base {
     type: 'smallint',
   })
   rating?: number;
-
-  @OneToMany(() => PaymentMethod, paymentMethod => paymentMethod.rider, { nullable: true, eager: true })
-  paymentMethods: PaymentMethod[];
 
   @OneToMany(() => Request, request => request.rider, { nullable: true, eager: true })
   requests: Request[];
