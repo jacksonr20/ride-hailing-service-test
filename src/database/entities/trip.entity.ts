@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToOne, JoinColumn, Point } from 'typeorm';
+import { Transform } from 'class-transformer';
 
 // Entities
 import { Base } from './base.entity';
 import { Car } from './car.entity';
 import { Driver } from './driver.entity';
-import { Location } from './location.entity';
 import { Payment } from './payment.entity';
 import { Request } from '../../api/request/entities';
 
@@ -44,14 +44,14 @@ export class Trip extends Base {
 
   @ApiProperty({
     description: 'Trip Final Location',
-    type: () => Location,
     required: false,
   })
-  @OneToOne(() => Location, location => location.finalLocation, { nullable: true })
-  @JoinColumn({
-    name: 'final_location_id',
+  @Column('geometry', {
+    name: 'final_location',
+    nullable: true,
   })
-  finalLocation?: Location;
+  @Transform(({ value }) => value.coordinates)
+  finalLocation?: Point;
 
   @ApiProperty({
     description: 'Trip Driver',
