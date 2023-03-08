@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsNotEmpty, IsNotEmptyObject, IsNumber, IsUUID, Max, Min, ValidateNested } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsNotEmptyObject, IsNumber, IsUUID, Max, Min, ValidateNested, IsOptional, Length } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class LocationDto {
@@ -48,18 +48,40 @@ export class LocationDto {
     message: 'Longitude should be less than or equal to 180',
   })
   readonly longitude: number;
+
+  @ApiProperty({
+    description: 'Location Zip Code',
+    example: '401821',
+    type: 'string',
+    required: false,
+  })
+  @IsOptional()
+  @Length(2, 6, {
+    message: 'Zip Code should be less than or equal to 6',
+  })
+  readonly zipCode: string;
 }
 
 export class RequestRideDto {
   @ApiProperty({
-    description: 'Rider Location',
+    description: 'Rider Pickup Location',
     required: true,
   })
   @ValidateNested()
   @Type(() => LocationDto)
   @IsDefined()
   @IsNotEmptyObject()
-  readonly location: LocationDto;
+  readonly pickupLocation: LocationDto;
+
+  @ApiProperty({
+    description: 'Rider Dropoff Location',
+    required: true,
+  })
+  @ValidateNested()
+  @Type(() => LocationDto)
+  @IsDefined()
+  @IsNotEmptyObject()
+  readonly dropoffLocation: LocationDto;
 
   @ApiProperty({
     description: 'Rider ID',

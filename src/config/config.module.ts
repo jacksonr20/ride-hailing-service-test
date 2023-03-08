@@ -26,6 +26,10 @@ import { Http, RateLimiting } from './interfaces';
         DATABASE_PORT: Joi.number().default(5432),
         DATABASE_SSL: Joi.boolean().default(false),
         DATABASE_USERNAME: Joi.string().required(),
+        MAP_BOX_BASE_URL: Joi.string().required(),
+        MAP_BOX_ACCESS_TOKEN: Joi.string().required(),
+        PGADMIN_DEFAULT_EMAIL: Joi.string().required(),
+        PGADMIN_DEFAULT_PASSWORD: Joi.string().required(),
       }),
     }),
     LoggerModule.forRoot({
