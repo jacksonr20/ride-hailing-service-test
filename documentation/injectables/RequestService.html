@@ -1,0 +1,612 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ride-hailing documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ride-hailing documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >RequestService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/api/request/services/request.service.ts</code>
+        </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#logger" >logger</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#finishRide" >finishRide</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#startRide" >startRide</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dataSource: DataSource, riderService: <a href="../injectables/RiderService.html" target="_self">RiderService</a>, tripService: <a href="../injectables/TripService.html" target="_self">TripService</a>, paymentService: <a href="../injectables/PaymentService.html" target="_self">PaymentService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/api/request/services/request.service.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dataSource</td>
+                                                  
+                                                        <td>
+                                                                    <code>DataSource</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>riderService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/RiderService.html" target="_self" >RiderService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>tripService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TripService.html" target="_self" >TripService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>paymentService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PaymentService.html" target="_self" >PaymentService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="finishRide"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>finishRide</b></span>
+                        <a href="#finishRide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>finishRide(payload: <a href="../classes/FinishRideDto.html" target="_self">FinishRideDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">src/api/request/services/request.service.ts:81</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>payload</td>
+                                    <td>
+                                                <code><a href="../classes/FinishRideDto.html" target="_self" >FinishRideDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../entitys/Trip.html" target="_self" >Promise&lt;Trip&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startRide"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>startRide</b></span>
+                        <a href="#startRide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>startRide(payload: <a href="../classes/RequestRideDto.html" target="_self">RequestRideDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">src/api/request/services/request.service.ts:35</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Create a new ride using the given payload and a new trip that&#39;ll be related to the request</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>payload</td>
+                                    <td>
+                                                <code><a href="../classes/RequestRideDto.html" target="_self" >RequestRideDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../entitys/Request.html" target="_self" >Promise&lt;Request&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>{Promise<Request>}</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logger"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>logger</b></span>
+                        <a href="#logger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Logger(RequestService.name)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/api/request/services/request.service.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, InternalServerErrorException, Logger, NotFoundException } from &#x27;@nestjs/common&#x27;;
+import { DataSource } from &#x27;typeorm&#x27;;
+
+import { Request } from &#x27;../entities&#x27;;
+import { FinishRideDto, RequestRideDto } from &#x27;../dto&#x27;;
+import { calculateFare } from &#x27;../../commons&#x27;;
+
+import { RiderService } from &#x27;./rider.service&#x27;;
+import { TripService } from &#x27;./trip.service&#x27;;
+import { PaymentService } from &#x27;./payment.service&#x27;;
+
+import { RequestStatus, TripStatus } from &#x27;./../../commons/enums&#x27;;
+import { Payment, Trip } from &#x27;./../../../database/entities&#x27;;
+import { MapBox, PaymentGateway } from &#x27;./../../libs&#x27;;
+import { generateUuid } from &#x27;./../../commons/helpers&#x27;;
+
+@Injectable()
+export class RequestService {
+  private logger &#x3D; new Logger(RequestService.name);
+
+  constructor(
+    private readonly dataSource: DataSource,
+    private readonly riderService: RiderService,
+    private readonly tripService: TripService,
+    private readonly paymentService: PaymentService,
+  ) {}
+
+  /**
+   * Create a new ride using the given payload and a new trip that&#x27;ll be related to the request
+   *
+   * @param {RequestRideDto} payload
+   * @return {*}  {Promise&lt;Request&gt;}
+   * @memberof RequestService
+   */
+  async startRide(payload: RequestRideDto): Promise&lt;Request&gt; {
+    try {
+      const { riderId, pickupLocation, dropoffLocation } &#x3D; payload;
+      const request &#x3D; new Request();
+
+      request.pickUpLocation &#x3D; {
+        type: &#x27;Point&#x27;,
+        coordinates: [pickupLocation.latitude, pickupLocation.longitude],
+      };
+      request.dropOffLocation &#x3D; {
+        type: &#x27;Point&#x27;,
+        coordinates: [dropoffLocation.latitude, dropoffLocation.longitude],
+      };
+      const { distance, duration } &#x3D; await MapBox.getDirection(
+        &#x60;${pickupLocation.longitude},${pickupLocation.latitude}&#x60;,
+        &#x60;${dropoffLocation.longitude},${dropoffLocation.latitude}&#x60;,
+      );
+      request.rider &#x3D; await this.riderService.getOneByIdOrFail(riderId);
+      request.estimatedFare &#x3D; calculateFare(distance, duration);
+
+      let incomingRequest: Request &#x3D; new Request();
+
+      await this.dataSource.transaction(async manager &#x3D;&gt; {
+        // Create the incoming request with the given payload
+        incomingRequest &#x3D; await manager.save&lt;Request&gt;(request);
+
+        // Creating the related trip with it&#x27;s driver
+        const relatedTrip &#x3D; await this.tripService.generateBaseTrip(incomingRequest);
+        await manager.save&lt;Trip&gt;(relatedTrip);
+
+        // As the request was accepted automatically we must change it&#x27;s status
+        await manager.update&lt;Request&gt;(Request, { id: incomingRequest.id }, { status: RequestStatus.ACCEPTED });
+      });
+
+      return incomingRequest;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+
+      this.logger.error(error);
+
+      throw new InternalServerErrorException(&#x27;Something went wrong creating your request, please try again.&#x27;);
+    }
+  }
+
+  async finishRide(payload: FinishRideDto): Promise&lt;Trip&gt; {
+    try {
+      const { tripId, finalLocation, riderRating, tip } &#x3D; payload;
+      const currentTrip &#x3D; await this.tripService.getOneByIdOrFail(tripId);
+      const paymentGateway &#x3D; new PaymentGateway();
+      const {
+        rider: { email },
+        pickUpLocation: { coordinates },
+      } &#x3D; currentTrip.request;
+
+      const { distance, duration } &#x3D; await MapBox.getDirection(&#x60;${coordinates[1]},${coordinates[0]}&#x60;, &#x60;${finalLocation.longitude},${finalLocation.latitude}&#x60;);
+      const tripFinalFare &#x3D; calculateFare(distance, duration);
+      let ridePropertiesToUpdate: Partial&lt;Trip&gt; &#x3D; {};
+
+      await this.dataSource.transaction(async manager &#x3D;&gt; {
+        const referenceId &#x3D; generateUuid();
+
+        // Create the transaction in the gateway
+        const tokenizedCard &#x3D; await paymentGateway.tokenizeCard();
+        const transactionId &#x3D; await paymentGateway.createNewTransaction({
+          amountInCents: tripFinalFare,
+          customerEmail: email,
+          reference: referenceId,
+          paymentMethod: {
+            installments: 1,
+            token: tokenizedCard,
+            type: &#x27;CARD&#x27;,
+          },
+        });
+
+        // Save the payment created for this trip
+        const paymentReference &#x3D; await manager.save&lt;Payment&gt;(
+          await this.paymentService.generatePayment({
+            id: referenceId,
+            fare: tripFinalFare,
+            transactionId,
+          }),
+        );
+
+        // Update the existing trip entity
+        ridePropertiesToUpdate &#x3D; {
+          status: TripStatus.COMPLETED,
+          finalLocation: {
+            type: &#x27;Point&#x27;,
+            coordinates: [finalLocation.latitude, finalLocation.longitude],
+          },
+          payment: paymentReference,
+          endTime: new Date(),
+          riderRating,
+        };
+        await manager.update&lt;Trip&gt;(Trip, { id: currentTrip.id }, ridePropertiesToUpdate);
+      });
+
+      return {
+        ...currentTrip,
+        ...ridePropertiesToUpdate,
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException || error instanceof InternalServerErrorException) {
+        throw error;
+      }
+
+      this.logger.error(error);
+
+      throw new InternalServerErrorException(&#x27;Something went wrong creating your request, please try again.&#x27;);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'RequestService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

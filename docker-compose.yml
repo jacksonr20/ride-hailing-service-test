@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  ride_hailing_app:
+    build:
+      dockerfile: ./Dockerfile
+    container_name: ride_hailing_app
+    volumes:
+      - /usr/src/app/node_modules
+    restart: always
+    networks:
+      ride_hailing_network:
+        ipv4_address: '172.16.238.12'
+    ports:
+      - '6543:3000'
+
+  ride_hailing_database:
+    build:
+      dockerfile: ./Dockerfile-Postgres
+    container_name: ride_hailing_database
+    restart: always
+    networks:
+      ride_hailing_network:
+        ipv4_address: '172.16.238.10'
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - '5432:5432'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    networks:
+      ride_hailing_network:
+        ipv4_address: '172.16.238.11'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - '16543:80'
+    depends_on:
+      - ride_hailing_database
+
+networks:
+  ride_hailing_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
