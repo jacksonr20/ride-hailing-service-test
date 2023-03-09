@@ -31,32 +31,35 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<p><a href="https://github.com/jacksonr20/ride-hailing-service-test/actions/workflows/ride-hailing-workflow-ci.yml"><img src="https://github.com/jacksonr20/ride-hailing-service-test/actions/workflows/ride-hailing-workflow-ci.yml/badge.svg" alt="Deployment Pipeline" class="img-responsive"></a></p>
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
+<p><a href="https://github.com/jacksonr20/ride-hailing-service-test/actions/workflows/ride-hailing-workflow-ci.yml"><img src="https://github.com/jacksonr20/ride-hailing-service-test/actions/workflows/ride-hailing-workflow-ci.yml/badge.svg" alt="Deployment Pipeline" class="img-responsive"></a><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" class="img-responsive"></a></p>
+<h1 id="ride-hailing-app">Ride Hailing App</h1>
 <h2 id="description">Description</h2>
-<p><a href="https://github.com/nestjs/nest">Nest</a> framework TypeScript starter repository.</p>
+<p>A small ride-hailing service app with monetary transactions.</p>
+<p>This app was built using: <a href="https://github.com/nestjs/nest">Nest</a> framework</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.</p>
+<h3 id="requirements">*Requirements</h3>
+<p>What things you need to install the software and how to install them.</p>
+<ul>
+<li>node &gt;= 18.14.0</li>
+<li>npm &gt;= 9.6.0</li>
+<li><a href="https://docs.docker.com/get-docker/">Docker</a> In latest LTE version</li>
+</ul>
+<ul>
+<li><a href="https://www.postgresql.org/download/">Postgres</a> == 14. [OPTIONAL] If you rather to use postgres locally instead of Docker.</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<div><pre class="line-numbers"><code class="language-bash"># In the project directory, clone and setup your environment variables:
+$ cp .env.example .env</code></pre></div><h3 id="once-completed">*Once completed:</h3>
+<ul>
+<li>Add your postgres: name, host, password, port, ssl and username in your .env file.</li>
+</ul>
+<h3 id="important">*Important</h3>
+<ul>
+<li>In the .env file, the </br> <code>GATEWAY_SECRET_KEY</code> and <code>GATEWAY_PUBLIC_KEY</code> are your public and private key from your payment_roll API. The <code>GATEWAY_ACCEPTANCE_TOKEN</code> and the <code>GATEWAY_BASE_URL</code> as well, must be created by following the API documentation respectively.</li>
+</ul>
 <h2 id="installation">Installation</h2>
-<div><pre class="line-numbers"><code class="language-bash">$ npm install</code></pre></div><h2 id="running-the-app">Running the app</h2>
+<div><pre class="line-numbers"><code class="language-bash">$ npm install</code></pre></div><h2 id="running-the-app-local-environment">Running the app: Local environment</h2>
 <div><pre class="line-numbers"><code class="language-bash"># development
 $ npm run start
 
@@ -64,7 +67,34 @@ $ npm run start
 $ npm run start:dev
 
 # production mode
-$ npm run start:prod</code></pre></div><h2 id="test">Test</h2>
+$ npm run start:prod</code></pre></div><h2 id="running-the-app-docker">Running the app: Docker</h2>
+<div><pre class="line-numbers"><code class="language-bash"># check if you have docker installed in your machine:
+$ docker --version || docker -v
+
+# The above should return the version of docker. Otherwise, check again requirements section
+
+# Build and run the containers:
+$ docker-compose up -d
+
+# The comment above should create the following 3 containers:
+
+* ride_hailing_app
+* ride_hailing_database
+* pgadmin</code></pre></div><h2 id="swagger">Swagger</h2>
+<ul>
+<li><img src="/docs/swagger.jpeg" alt="Swagger" class="img-responsive"></li>
+</ul>
+<p>To access to this swagger, you must open in a new tab a url that will look like this: <br> <code>http://localhost:&lt;port&gt;/api/</code> or <a href="http://localhost:3000/api/">open this link</a>.</p>
+<h2 id="localhost-ports">Localhost ports:</h2>
+<h3 id="to-execute-requests-to-the-endpoints">To execute requests to the endpoints:</h3>
+<ul>
+<li>example: <a href="http://localhost/6543">http://localhost/6543</a></li>
+</ul>
+<h3 id="to-establish-a-straight-connection-to-postres">To establish a straight connection to postres:</h3>
+<ul>
+<li>example: <a href="http://localhost/5432">http://localhost/5432</a></li>
+</ul>
+<h2 id="test">Test</h2>
 <div><pre class="line-numbers"><code class="language-bash"># unit tests
 $ npm run test
 
@@ -72,16 +102,24 @@ $ npm run test
 $ npm run test:e2e
 
 # test coverage
-$ npm run test:cov</code></pre></div><h2 id="support">Support</h2>
+$ npm run test:cov</code></pre></div><h2 id="compodoc">Compodoc</h2>
+<ul>
+<li><img src="/docs/compodoc.jpeg" alt="Compodoc" class="img-responsive"></li>
+</ul>
+<p>Execute the following command to get a detailed documentation of this project.</p>
+<div><pre class="line-numbers"><code class="language-bash">$ npm run compodoc</code></pre></div><h2 id="pending">Pending:</h2>
+<ul>
+<li>Seeders to skip the creation of a Rider and a Driver.</li>
+</ul>
+<h2 id="support">Support</h2>
 <p>Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you&#39;d like to join them, please <a href="https://docs.nestjs.com/support">read more here</a>.</p>
 <h2 id="stay-in-touch">Stay in touch</h2>
 <ul>
-<li>Author - <a href="https://kamilmysliwiec.com">Kamil Myśliwiec</a></li>
-<li>Website - <a href="https://nestjs.com/">https://nestjs.com</a></li>
-<li>Twitter - <a href="https://twitter.com/nestframework">@nestframework</a></li>
+<li>Author - <a href="https://github.com/jacksonr20">Jackson Rodriguez</a></li>
+<li>Gmail - <a href="mailto:jackson.rodriguezf@gmail.com">jackson.rodriguezf@gmail.com</a></li>
 </ul>
 <h2 id="license">License</h2>
-<p>Nest is <a href="LICENSE">MIT licensed</a>.</p>
+<p>Ride Hailing App is <a href="LICENSE">MIT licensed</a>.</p>
 
 
 
